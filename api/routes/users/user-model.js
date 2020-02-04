@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs')
 const db = require('../../../data/db-config')
 
 function find() {
-  return db("users").select("id", "email", "username")
+  return db("users").select("id", "email", "username", "first_name", "last_name")
 }
 
 function findBy(filter) {
@@ -15,7 +15,7 @@ function add(user) {
 }
 
 function findById(id) {
-  return db("users").where({ id }).first("id", "username")
+  return db("users").where({ id }).first("id", "username", "email", "first_name", "last_name")
 }
 
 function update(id, changes) {
