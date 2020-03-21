@@ -16,16 +16,17 @@ router.post("/register/supporter", validateSupReg, async (req, res, next) => {
   try {
     const user = await Users.add(req.body) 
     const msg = {
-      to: 'savetheanimalsbw@gmail.com',
+      to: 'nick.durbin@gmail.com',
       from: 'savetheanimalsbw@gmail.com',
-      subject: 'Thank you for Registering an Account at Save the Animals',
-      text: 'Thank you.',
-      html: `Welcome ${user.first_name}, <br /> We are glad you chose to create an account with us!<br /><strong>Sincerly, Save the Animals!</strong>`,
+      subject: 'Welcome',
+      templateId: process.env.SENDGRID_TEMPLATE
     };
     
     if (user) {
-      sgMail.send(msg);   
+      sgMail.send(msg)
       return res.status(201).json({ message: "User has been successfully registered.", user})
+    } else {
+      res.statusCode(400).json({ message: "You are missing registration credentials."})
     }
 
   } catch (error) { 
