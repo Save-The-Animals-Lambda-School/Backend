@@ -34,6 +34,7 @@ router.post("/", async (req, res, next) => {
 })
 
 router.put("/:id", async (req, res, next) => {
+<<<<<<< HEAD
   try {
     const { id } = req.params
     const updates = req.body
@@ -45,6 +46,27 @@ router.put("/:id", async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+=======
+  const { id } = req.params;
+  const updatedUser = req.body;
+  Users.findById(id)
+    .then(user => {
+      if (user.password) {
+        const hash = bcrypt.hashSync(user.password, 12); 
+        updatedUser.password = hash;
+      }
+      Users.update(id, updatedUser)
+        .then(updated => {
+          res.status(200).json(updated[0]);
+        })
+        .catch(error => {
+          res.status(400).json(error);
+        });
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    })
+>>>>>>> 7e3e1a51a0d24c4001a44f7515d690712794e51a
 });
 
 router.delete("/:id", async (req, res, next) => {

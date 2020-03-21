@@ -36,12 +36,20 @@ router.post("/", async (req, res, next) => {
 router.put("/:id", async (req, res, next) => {
   try {
     const { id } = req.params
+<<<<<<< HEAD
     const updates = req.body
 
     await Organizations.update(id, updates)
 
     const updatedOrg = await Organizations.findById(id)
 
+=======
+    const campaign = req.body
+    
+    await Organizations.update(id, campaign)
+    
+    const updatedOrg = await Organizations.findById(id)
+>>>>>>> 7e3e1a51a0d24c4001a44f7515d690712794e51a
     return res.status(200).json(updatedOrg)
   } catch(error) {
     next(error)
